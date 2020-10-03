@@ -1,6 +1,7 @@
 package guru.springframework.spring5recipeapp.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Recipe {
@@ -15,6 +16,10 @@ public class Recipe {
     private String source;
     private String url;
     private String directions;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy="recipe")
+    private Set<Ingredient>ingredients;
+
 
     @Lob     // we use it for large objects
     private Byte[] image;
@@ -98,7 +103,16 @@ public class Recipe {
         return notes;
     }
 
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
     public void setNotes(Notes notes) {
         this.notes = notes;
+
     }
 }
